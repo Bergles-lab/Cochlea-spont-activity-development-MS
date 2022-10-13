@@ -79,8 +79,8 @@ for i = 1:16
 end
 
 % save mean dFoF responses for whole IC ROI
-%defaultDir = 'F:\Calvin\tmem16a\widefield IC sound\504_1 flfl';
-%save([defaultDir '\504_1_60dB.mat'],'LICsig','RICsig','avgRIC','avgLIC')
+defaultDir = 'F:\Calvin\tmem16a\widefield IC sound\518_3 flfl';
+save([defaultDir '\518_3_20dB.mat'],'LICsig','RICsig','avgRIC','avgLIC')
 
 %%single traces tones
 copySigR = RICsig;
@@ -128,46 +128,46 @@ end
 % start with just a profile plot, later can calculate spatial information,
 % etc
 
-% % Display all freq responses
-% figure;
-% for i = 1:16
-%     subplot(4,4,i)
-%     wimg = avgToneImg{1,i};
-%     imagesc(mean(wimg(:,:,12:22),3));
-%     caxis([-0.1 .3]);
-% end
-% 
-% x = input('Rotate? (degrees)');
-% i = 1;
-% wimg = avgToneImg{1,i};
-% maxProj = mean(wimg(:,:,12:22),3);
-% rotateMaxProj = imrotate(maxProj, x);
-% figure
-% h_im = imagesc(rotateMaxProj);
-% %colormap gfb;
-% caxis([-0.1 0.4]);
-% LIC = imrect(gca,[100,100,25,250]);
-% setResizable(LIC,0);
-% wait(LIC);
-% pos = getPosition(LIC);
-% pos = int16(round(pos));
-% meanLIC = struct();
-% for i = 1:12
-%     wimg = avgToneImg{1,i};
-%     maxProj= max(wimg(:,:,12:22),[],3);
-%    % imagesc(maxProj)
-%     rotateMaxProj = imrotate(maxProj, x);
-%     LICrect = rotateMaxProj(pos(2):pos(2)+pos(4)-1,pos(1):pos(1)+pos(3)-1,:);
-%     meanLIC(i).profileraw = squeeze(mean(LICrect,2));
-%     meanLIC(i).profilenorm = meanLIC(i).profileraw - min(meanLIC(i).profileraw); % normalization
-%     subplot(3,4,i)
-%     plot(meanLIC(i).profileraw)
-%     ylim([0 0.4])
-% end
-% 
-% %save profile 
-%  defaultDir = 'F:\Calvin\tmem16a\widefield IC sound\504_1 flfl\';
-%  save([defaultDir '504_1_0dBprofile3khz.mat'],'meanLIC')
+% Display all freq responses
+figure;
+for i = 1:16
+    subplot(4,4,i)
+    wimg = avgToneImg{1,i};
+    imagesc(mean(wimg(:,:,12:22),3));
+    caxis([-0.1 .3]);
+end
+
+x = input('Rotate? (degrees)');
+i = 1;
+wimg = avgToneImg{1,i};
+maxProj = mean(wimg(:,:,12:22),3);
+rotateMaxProj = imrotate(maxProj, x);
+figure
+h_im = imagesc(rotateMaxProj);
+%colormap gfb;
+caxis([-0.1 0.4]);
+LIC = imrect(gca,[100,100,25,200]);
+setResizable(LIC,0);
+wait(LIC);
+pos = getPosition(LIC);
+pos = int16(round(pos));
+meanLIC = struct();
+for i = 1:12
+    wimg = avgToneImg{1,i};
+    maxProj= max(wimg(:,:,12:22),[],3);
+   % imagesc(maxProj)
+    rotateMaxProj = imrotate(maxProj, x);
+    LICrect = rotateMaxProj(pos(2):pos(2)+pos(4)-1,pos(1):pos(1)+pos(3)-1,:);
+    meanLIC(i).profileraw = squeeze(mean(LICrect,2));
+    meanLIC(i).profilenorm = meanLIC(i).profileraw - min(meanLIC(i).profileraw); % normalization
+    subplot(3,4,i)
+    plot(meanLIC(i).profileraw)
+    ylim([0 0.4])
+end
+
+%save profile 
+defaultDir = 'F:\Calvin\tmem16a\widefield IC sound\518_3 flfl\';
+save([defaultDir '518_3_20dBprofile3khz.mat'],'meanLIC')
 
 %% image display 
 % 
@@ -179,7 +179,7 @@ a = avgTones(:,:,5:40,10);
 b = avgTones(:,:,5:40,6);
 c = avgTones(:,:,5:40,8);
 d = avgTones(:,:,5:40,1);
-e = avgTones(:,:,5:40,13);
+e = avgTones(:,:,5:40,5);
 f = avgTones(:,:,5:40,4);
 g = avgTones(:,:,5:40,7);
 
@@ -228,7 +228,7 @@ rgb(:,:,1,:) = e;
 %implay(rgb);
 rgb(rgb > 1) = 0.99;
 rgb(rgb < 0) = 0;
-v = VideoWriter('48khz.avi','Uncompressed AVI');
+v = VideoWriter('7_5khz.avi','Uncompressed AVI');
 open(v);
 writeVideo(v,rgb);
 close(v);
